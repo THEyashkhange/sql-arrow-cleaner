@@ -36,7 +36,12 @@ DELIMITER ;`;
 function cleanSql(input) {
   return input
     .split("\n")
-    .map((line) => line.replace(/^\s*->\s?/, "").replace(/^\s*=>\s?/, ""))
+    .map((line) =>
+      line
+        .replace(/^\s*mysql>\s?/, "")
+        .replace(/^\s*->\s?/, "")
+        .replace(/^\s*=>\s?/, "")
+    )
     .join("\n");
 }
 
