@@ -2,36 +2,39 @@ import React, { useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
 
-const SAMPLE = `DELIMITER //
-
-CREATE PROCEDURE update_salary(IN p_emp_id INT)
-BEGIN
-    SELECT designation INTO v_designation
-    FROM employee
-    WHERE Emp_ID = p_emp_id;
-
-    IF v_designation = 'Manager' THEN
-        SET v_increment = 15.00;
-    ELSEIF v_designation = 'Senior Software Engineer' THEN
-        SET v_increment = 12.00;
-    ELSEIF v_designation = 'Software Engineer' THEN
-        SET v_increment = 10.00;
-    ELSE
-        SET v_increment = 5.00;
-    END IF;
-
-    UPDATE employee
-    -> SET salary = salary + (salary * v_increment / 100)
-    -> WHERE Emp_ID = p_emp_id;
-
-    SELECT Emp_ID,
-    -> emp_name,
-    -> salary AS updated_salary
-    -> FROM employee
-    -> WHERE Emp_ID = p_emp_id;
-END //
-
-DELIMITER ;`;
+const SAMPLE = `mysql> DELIMITER //
+    -> CREATE PROCEDURE GetEmployeeDetails(IN p_emp_id INT)
+    -> BEGIN
+    ->     DECLARE v_salary DECIMAL(10,2);
+    ->     DECLARE v_name VARCHAR(100);
+    ->
+    ->     SELECT
+    ->         emp_name,
+    ->         salary
+    ->     INTO
+    ->         v_name,
+    ->         v_salary
+    ->     FROM employee
+    ->     WHERE Emp_ID = p_emp_id;
+    ->
+    ->     IF v_salary >= 100000 THEN
+    ->         SELECT
+    ->             v_name AS employee_name,
+    ->             v_salary AS salary,
+    ->             'High Salary' AS category;
+    ->     ELSEIF v_salary >= 50000 THEN
+    ->         SELECT
+    ->             v_name AS employee_name,
+    ->             v_salary AS salary,
+    ->             'Medium Salary' AS category;
+    ->     ELSE
+    ->         SELECT
+    ->             v_name AS employee_name,
+    ->             v_salary AS salary,
+    ->             'Low Salary' AS category;
+    ->     END IF;
+    -> END //
+    -> DELIMITER ;`;
 
 function cleanSql(input) {
   return input
@@ -78,16 +81,16 @@ function App() {
             <div className="brand-sub">Clean terminal prompts. Copy clean SQL.</div>
           </div>
         </div>
-        <span className="badge">100% browser-based</span>
+        {/* <span className="badge">100% browser-based</span> */}
       </nav>
 
       <section className="hero">
-        <div className="eyebrow">SQL LAB TOOL</div>
-        <h1>Remove those annoying <span>→ arrows</span> automatically.</h1>
-        <p>
-          Paste SQL copied from a terminal, screenshot-to-text tool, or class notes.
-          The app removes continuation prompts at the start of lines without changing your SQL.
-        </p>
+        {/* <div className="eyebrow">SQL LAB TOOL</div> */}
+        <h1>Remove those annoying <span>→ arrows</span> and <span> mysql{">"} </span> automatically.</h1>
+        {/* <p>
+          Paste SQL copied from a terminal.
+          The app will removes continuation prompts at the start of lines without changing your SQL.
+        </p> */}
       </section>
 
       <section className="workspace">
@@ -131,7 +134,7 @@ function App() {
           />
           <div className="panel-foot">
             <span>{output.length} characters · Ready to paste</span>
-            <span className="safe">No server upload</span>
+            {/* <span className="safe">No server upload</span> */}
           </div>
         </div>
       </section>
@@ -140,14 +143,14 @@ function App() {
         <h2>How it works</h2>
         <div className="steps">
           <div><b>01</b><span>Paste the SQL copied from your terminal.</span></div>
-          <div><b>02</b><span>Continuation arrows at the beginning of lines are removed.</span></div>
+          <div><b>02</b><span>Continuation arrows and mysql{">"} at the beginning of lines are removed.</span></div>
           <div><b>03</b><span>Click <strong>Copy SQL</strong> and paste directly into MySQL.</span></div>
         </div>
       </section>
 
-      <footer>
+      {/* <footer>
         Built for quick SQL lab work · Your query stays in your browser
-      </footer>
+      </footer> */}
     </main>
   );
 }

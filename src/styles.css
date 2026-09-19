@@ -41,7 +41,7 @@ body { margin: 0; min-width: 320px; background: #080b12; }
 
 .hero { text-align: center; padding: 72px 0 42px; max-width: 850px; margin: auto; }
 .eyebrow { color: #60a5fa; font-size: 12px; font-weight: 800; letter-spacing: .18em; }
-h1 { font-size: clamp(36px, 5vw, 62px); line-height: 1.02; letter-spacing: -.055em; margin: 14px 0 18px; }
+h1 { font-size: clamp(36px, 5vw, 34px); line-height: 1.02; letter-spacing: -.055em; margin: 14px 0 18px; }
 h1 span { color: #60a5fa; }
 .hero p { color: #8994a8; max-width: 700px; margin: auto; line-height: 1.7; }
 
